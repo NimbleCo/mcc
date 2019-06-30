@@ -14,7 +14,9 @@ ARG PHP_IMAGICK_VERSION="3.4.4-r1"
 
 ENV PHP_VERSION="$PHP_VERSION"
 
-# Install PHP and the most common extensions
+# Install PHP and the most common extensions.
+# Do not install php-gd moduel as it pulls half of X11 and related libraries...
+# For this we can use a separate image, probably rarely used in cli.
 RUN apk add --no-cache \
         php7=${PHP_VERSION} \
         php7-opcache=${PHP_VERSION} \
