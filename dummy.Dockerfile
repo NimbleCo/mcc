@@ -1,1 +1,0 @@
-FROM nimbleco/mcc-base:latest
