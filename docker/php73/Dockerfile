@@ -8,15 +8,36 @@ FROM $BASE_IMAGE AS component-begin
 
 RUN mcc component-begin node
 
-ARG NODE_VERSION="10.16.0-r0"
-ARG YARN_VERSION="1.16.0-r0"
+ARG PHP_VERSION="7.3.6-r0"
+ARG PHP_APCU_VERSION="5.1.17-r1"
+ARG PHP_IMAGICK_VERSION="3.4.4-r1"
 
-ENV NODE_VERSION="$NODE_VERSION" \
-    YARN_VERSION="$YARN_VERSION"
+ENV PHP_VERSION="$PHP_VERSION"
 
+# Install PHP and the most common extensions
 RUN apk add --no-cache \
-        nodejs=${NODE_VERSION} \
-        yarn=${YARN_VERSION} && \
+        php7=${PHP_VERSION} \
+        php7-opcache=${PHP_VERSION} \
+        php7-intl=${PHP_VERSION} \
+        php7-json=${PHP_VERSION} \
+        php7-mbstring=${PHP_VERSION} \
+        php7-simplexml=${PHP_VERSION} \
+        php7-dom=${PHP_VERSION} \
+        php7-bcmath=${PHP_VERSION} \
+        php7-curl=${PHP_VERSION} \
+        php7-openssl=${PHP_VERSION} \
+        php7-sqlite3=${PHP_VERSION} \
+        php7-pcntl=${PHP_VERSION} \
+        php7-zip=${PHP_VERSION} \
+        php7-bz2=${PHP_VERSION} \
+        php7-ftp=${PHP_VERSION} \
+        php7-pdo=${PHP_VERSION} \
+        php7-pdo_mysql=${PHP_VERSION} \
+        php7-pdo_sqlite=${PHP_VERSION} \
+        php7-pdo_pgsql=${PHP_VERSION} \
+        php7-exif=${PHP_VERSION} \
+        php7-pecl-apcu=${PHP_APCU_VERSION} \
+        && \
     rm -rf /var/cache/apk/*
 
 

@@ -26,6 +26,17 @@ RUN apk update && \
         rsync \
         libgcc \
         libstdc++ \
+        # Some really widely used librariers head, with out approach this is better than to install in child images
+        icu-libs \
+        fontconfig \
+        libpng \
+        libjpeg-turbo \
+        libwebp \
+        libzip \
+        libpq \
+        libxml2 \
+        libuv \
+        freetype \
         && \
         rm -rf /var/cache/apk/*
 
