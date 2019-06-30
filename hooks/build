@@ -12,8 +12,5 @@ export AUTO_PUSH=true
 # Run the real build
 source bin/build
 
-# Tag the latest base as `:latest` to make docker hub at ease
-export MCC_BASE_CURRENT="$(get_target_image_name "base")"
-export TARGET_TAG="latest"
-export MCC_BASE_LATEST="$(get_target_image_name "base")"
-docker tag "$MCC_BASE_CURRENT" "$MCC_BASE_LATEST"
+# Tag the latest base as provided $IMAGE_NAME to make docker hub at ease
+docker tag "$(get_target_image_name "base")" "$IMAGE_NAME"

@@ -48,3 +48,7 @@ function mcc_fs_list_sync() {
 
     rsync ${MCC_FS_RSYNC_OPTS[@]} --files-from "$LIST" / "$DEST/" $@
 }
+
+function mcc_env_add_exports() {
+    sed -E 's/^([^=]+)=([^$]+)/export \1="\2"/'
+}

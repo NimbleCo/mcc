@@ -84,7 +84,7 @@ function mcc_component_iout_finish() {
     log_task "Write finish env"  mcc_env_list '>' "$IOUT_RUNTIME_ENV_FINISH"
     log_file_contents "$IOUT_RUNTIME_ENV_FINISH"
 
-    log_task "Write runtime env" mcc_env_list_diff "$IOUT_RUNTIME_ENV_BEGIN" "$IOUT_RUNTIME_ENV_FINISH" '|' mcc_diff_filter_new '>' "$IOUT_RUNTIME_ENV_OUT"
+    log_task "Write runtime env" mcc_env_list_diff "$IOUT_RUNTIME_ENV_BEGIN" "$IOUT_RUNTIME_ENV_FINISH" '|' mcc_diff_filter_new '|' mcc_env_add_exports '>' "$IOUT_RUNTIME_ENV_OUT"
     log_file_contents "$IOUT_RUNTIME_ENV_OUT"
 
     # TODO: Need to check files that were present both before and after and compute checksums, and warn if changed.
