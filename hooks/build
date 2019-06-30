@@ -9,4 +9,4 @@ export VCS_BRANCH="$SOURCE_BRANCH"
 export FORCE_PULL=true
 export AUTO_PUSH=true
 
-source ../bin/build
+source bin/build
