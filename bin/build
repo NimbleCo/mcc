@@ -14,7 +14,8 @@ BASE_DIR=`dirname "$BASH_SOURCE"`
 [[ ! -z "$VCS_BRANCH" ]]    || VCS_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
 [[ ! -z "$BUILD_VERSION" ]] || BUILD_VERSION="${VCS_TAG}"
-[[ ! -z "$BUILD_VERSION" ]] || BUILD_VERSION="${VCS_BRANCH}-${VCS_REF}"
+[[ ! -z "$BUILD_VERSION" ]] || BUILD_VERSION="${VCS_BRANCH}"
+[[ ! -z "$BUILD_VERSION" ]] || BUILD_VERSION="${VCS_REF}"
 
 [[ ! -z "$AUTO_PUSH" ]]     || AUTO_PUSH=false
 [[ ! -z "$FORCE_PULL" ]]    || FORCE_PULL=false
