@@ -1,0 +1,20 @@
+set -e
+
+mcc_call_usage() {
+    echo "[component name]\n\n  Marks component artifacts installation stage start\n"
+}
+
+MCC_COMPONENT="$1"
+
+[[ ! -z "${MCC_PREFIX}" ]] || MCC_PREFIX="/usr"; . "${MCC_PREFIX}/lib/mcc/cli.sh"
+
+if [[ ! $# -eq 1 ]] ; then
+    log_error "Please specify the component name as the only argument\n"
+    mcc_cli_show_help
+    exit 1
+fi
+
+log_info "Initializing component installation stage for: $MCC_COMPONENT"
+
+mcc_component_iout_begin "$MCC_COMPONENT"
+

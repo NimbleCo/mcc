@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Get these from env provided by docker hub build system
+export VCS_REF="$SOURCE_COMMIT"
+export VCS_BRANCH="$SOURCE_BRANCH"
+
+export FORCE_PULL=true
+export AUTO_PUSH=true
+
+source ../bin/build

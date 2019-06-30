@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+mcc_call_usage() {
+    echo "[command] <command args>\n";
+    echo "  Available commands:\n$(mcc-cli-list-commands)"
+}
+
+[[ ! -z "${MCC_PREFIX}" ]] || MCC_PREFIX="/usr"; . "${MCC_PREFIX}/lib/mcc/cli.sh"
+
+if [[ $# -eq '0' ]] ; then
+    log_error "Please specify a valid command\n"
+    mcc_cli_show_help
+    exit 2
+fi
+
+shift
+
+if [[ "$MCC_COMMAND" == "help" ]] ; then
+    if [[ $# -eq 0 ]] ; then
+    echo "$MCC_CALL_USAGE"
+        mcc_cli_show_help
+        exit 0
+    fi
+
+    MCC_COMMAND="$1"
+    MCC_CALL_ARGS="$@ --help"
+fi
+
+if ! mcc_cli_has_command "$MCC_COMMAND" ; then
+    loge_error "Unrecognized command: ${MCC_COMMAND}\n"
+    mcc_cli_show_help
+    exit 2
+fi
+
+MCC_CALL="$MCC_CALL $MCC_COMMAND"
+unset MCC_CALL_USAGE
+
+. `mcc_cli_get_command_binary "$MCC_COMMAND"`
+
+
+
+
+
+
+

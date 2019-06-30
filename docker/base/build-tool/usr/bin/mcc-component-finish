@@ -1,0 +1,19 @@
+set -e
+
+mcc_call_usage() {
+    echo "[component name]\n\n Finalized the component installation and prepares artifacts with manifest\n"
+}
+
+MCC_COMPONENT="$1"
+
+[[ ! -z "${MCC_PREFIX}" ]] || MCC_PREFIX="/usr"; . "${MCC_PREFIX}/lib/mcc/cli.sh"
+
+if [[ ! $# -eq 1 ]] ; then
+    log_error "Please specify the component name as the only argument\n"
+    mcc_cli_show_help
+    exit 1
+fi
+
+log_info "Finishing component installation stage for: $MCC_COMPONENT"
+
+mcc_component_iout_finish "$MCC_COMPONENT"
