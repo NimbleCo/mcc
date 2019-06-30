@@ -3,7 +3,7 @@
 set -e
 
 # Get these from env provided by docker hub build system
-export VCS_REF="$SOURCE_COMMIT"
+export VCS_REF="$(echo "$SOURCE_COMMIT" | head -c 7)" # Make it 7 chars the same as `git rev-parse --short` produces
 export VCS_BRANCH="$SOURCE_BRANCH"
 
 export FORCE_PULL=true
