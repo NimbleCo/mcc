@@ -1,3 +1,5 @@
 for f in /etc/profile.d/*.sh ; do
-    source $f;
+    source "$f";
+    # Just in case some scripts set -e or -x
+    set +e +x
 done

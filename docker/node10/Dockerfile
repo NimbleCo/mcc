@@ -1,12 +1,10 @@
-ARG BASE_IMAGE
-
-
-
 ### [Stage 1] Build the component artifacts
+
+ARG BASE_IMAGE
 
 FROM $BASE_IMAGE AS component-begin
 
-RUN mcc component-begin node
+RUN mcc component-begin node10
 
 ARG NODE_VERSION="10.16.0-r0"
 ARG YARN_VERSION="1.16.0-r0"
@@ -25,7 +23,7 @@ RUN apk add --no-cache \
 
 FROM component-begin AS component-finish
 
-RUN mcc component-finish node
+RUN mcc component-finish node10
 
 
 
@@ -33,7 +31,7 @@ RUN mcc component-finish node
 
 FROM scratch AS component
 
-COPY --from=component-finish /component/node/rootfs/ /
+COPY --from=component-finish /component/node10/rootfs/ /
 
 
 

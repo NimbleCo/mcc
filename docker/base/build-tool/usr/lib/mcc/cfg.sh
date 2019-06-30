@@ -5,6 +5,7 @@
 
 # Global core defaults, you will almost never override these (maybe except for some testing)
 [[ ! -z "$MCC" ]]            || MCC="mcc"
+[[ ! -z "$MCC_PREFIX" ]]     || MCC_PREFIX="/usr"
 [[ ! -z "$MCC_TMPDIR" ]]     || MCC_TMPDIR="/tmp/mcc"
 
 # Installed components' manifest system-global storage directory
@@ -18,6 +19,9 @@
 
 # Name of the intermediary temp data storage dir
 [[ ! -z "$MCC_COMPONENT_IOUT_TMP_DIR" ]]  || MCC_COMPONENT_IOUT_TMP_DIR="/tmp"
+
+# Env files excluded when computing component env
+[[ ! -z "$MCC_ENV_EXCLUDE_REGEX" ]]        || MCC_ENV_EXCLUDE_REGEX='^(_|MCC_|DOCKER_|SSH_|GIT_)|^(PATH|HOST|USER|SHELL|DISPLAY|LANG|PWD|HOME)'
 
 # Common opts for `diff` command
 [[ ! -z "$MCC_DIFF_OPTS" ]] || MCC_DIFF_OPTS=(

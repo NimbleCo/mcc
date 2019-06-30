@@ -29,22 +29,22 @@ function mcc_component_get_iout_manifest_dir() {
 }
 
 function mcc_component_iout_vars() {
-    export IOUT_COMPONENT_NAME="$1"
+    IOUT_COMPONENT_NAME="$1"
 
-    export IOUT_DIR=`mcc_component_get_iout_dir "$IOUT_COMPONENT_NAME"`
-    export IOUT_TMP_DIR=`mcc_component_get_iout_tmp_dir "$IOUT_COMPONENT_NAME"`
-    export IOUT_RFS_DIR=`mcc_component_get_iout_rfs_dir "$IOUT_COMPONENT_NAME"`
-    export IOUT_MANIFEST_DIR=`mcc_component_get_iout_manifest_dir "$IOUT_COMPONENT_NAME"`
+    IOUT_DIR=`mcc_component_get_iout_dir "$IOUT_COMPONENT_NAME"`
+    IOUT_TMP_DIR=`mcc_component_get_iout_tmp_dir "$IOUT_COMPONENT_NAME"`
+    IOUT_RFS_DIR=`mcc_component_get_iout_rfs_dir "$IOUT_COMPONENT_NAME"`
+    IOUT_MANIFEST_DIR=`mcc_component_get_iout_manifest_dir "$IOUT_COMPONENT_NAME"`
 
-    export IOUT_METADATA_FILE="$IOUT_MANIFEST_DIR/metadata"
+    IOUT_METADATA_FILE="$IOUT_MANIFEST_DIR/metadata"
 
-    export IOUT_FS_LIST_BEGIN="$IOUT_TMP_DIR/fs-list-begin"
-    export IOUT_FS_LIST_FINISH="$IOUT_TMP_DIR/fs-list-finish"
-    export IOUT_FS_LIST_OUT="$IOUT_MANIFEST_DIR/filesystem"
+    IOUT_FS_LIST_BEGIN="$IOUT_TMP_DIR/fs-list-begin"
+    IOUT_FS_LIST_FINISH="$IOUT_TMP_DIR/fs-list-finish"
+    IOUT_FS_LIST_OUT="$IOUT_MANIFEST_DIR/filesystem"
 
-    export IOUT_RUNTIME_ENV_BEGIN="$IOUT_TMP_DIR/env-list-begin"
-    export IOUT_RUNTIME_ENV_FINISH="$IOUT_TMP_DIR/env-list-finish"
-    export IOUT_RUNTIME_ENV_OUT="$IOUT_TMP_DIR/runtime-env"
+    IOUT_RUNTIME_ENV_BEGIN="$IOUT_TMP_DIR/env-list-begin"
+    IOUT_RUNTIME_ENV_FINISH="$IOUT_TMP_DIR/env-list-finish"
+    IOUT_RUNTIME_ENV_OUT="$IOUT_MANIFEST_DIR/runtime-env"
 }
 
 function mcc_component_iout_cleanup() {
@@ -64,6 +64,7 @@ function mcc_component_iout_begin() {
 
     log_task "Write begin fs list: $IOUT_FS_LIST_BEGIN" mcc_fs_list '>' "$IOUT_FS_LIST_BEGIN"
     log_task "Write begin env: $IOUT_RUNTIME_ENV_BEGIN" mcc_env_list '>' "$IOUT_RUNTIME_ENV_BEGIN"
+    log_file_contents "$IOUT_RUNTIME_ENV_BEGIN"
 }
 
 function mcc_component_write_metadata() {
@@ -100,6 +101,7 @@ function mcc_component_iout_finish() {
 
     mcc_component_iout_cleanup "$IOUT_COMPONENT_NAME"
 }
+
 
 
 

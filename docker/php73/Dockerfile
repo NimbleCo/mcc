@@ -1,18 +1,15 @@
-ARG BASE_IMAGE
-
-
-
 ### [Stage 1] Build the component artifacts
+
+ARG BASE_IMAGE
 
 FROM $BASE_IMAGE AS component-begin
 
-RUN mcc component-begin node
+RUN mcc component-begin php7
 
 ARG PHP_VERSION="7.3.6-r0"
 ARG PHP_APCU_VERSION="5.1.17-r1"
-ARG PHP_IMAGICK_VERSION="3.4.4-r1"
 
-ENV PHP_VERSION="$PHP_VERSION"
+ENV PHP_VERSION="${PHP_VERSION}"
 
 # Install PHP and the most common extensions.
 # Do not install php-gd moduel as it pulls half of X11 and related libraries...
@@ -48,7 +45,7 @@ RUN apk add --no-cache \
 
 FROM component-begin AS component-finish
 
-RUN mcc component-finish node
+RUN mcc component-finish php7
 
 
 
@@ -56,7 +53,7 @@ RUN mcc component-finish node
 
 FROM scratch AS component
 
-COPY --from=component-finish /component/node/rootfs/ /
+COPY --from=component-finish /component/php7/rootfs/ /
 
 
 

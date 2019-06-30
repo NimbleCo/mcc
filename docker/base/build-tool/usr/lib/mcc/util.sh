@@ -17,7 +17,7 @@ function mcc_fs_list() {
 }
 
 function mcc_env_list() {
-    env | grep -v -e '^_' | grep -v -e '^MCC_'
+    env | grep -v -E "$MCC_ENV_EXCLUDE_REGEX"
 }
 
 function mcc_env_list_diff() {
