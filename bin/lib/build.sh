@@ -1,5 +1,5 @@
 BUILT_IMAGES=""
-BUILD_ARGS=""
+BUILD_ARGS="--build-arg TARGET_TAG=${TARGET_TAG}"
 
 function on_exit() {
     [[ -z "$TMP_DIR" ]] || rm -rf "$TMP_DIR"
@@ -22,7 +22,7 @@ function get_target_image_id_file() {
 
 function register_local_image() {
     local NAME="$1" DIGEST="$2"
-    local ARG_NAME="$(echo "$NAME" | tr a-z A-Z)_IMAGE"
+    local ARG_NAME="$(echo "$NAME" | tr a-z A-Z | sed -E 's/\./_/g')_IMAGE"
 
     BUILD_ARGS="${BUILD_ARGS} --build-arg ${ARG_NAME}=${DIGEST}"
 }

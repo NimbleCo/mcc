@@ -34,6 +34,8 @@ build_target_stage "node10" "component"
 build_target_image "php73"
 build_target_stage "php73" "component"
 
+build_target_image "php73-node10"
+
 echo -e "$C_WRN"
 echo -e "*** All containers built successfully ***"
 echo -e "$C_INF"

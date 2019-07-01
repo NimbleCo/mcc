@@ -11,6 +11,10 @@ function docker_image_get_digest() {
     local NAME="$1"; docker image inspect --format='{{index (.RepoDigests) 0}}' "$NAME"
 }
 
+function docker_image_get_layers() {
+    local NAME="$1"; docker image inspect --format='{{.RootFS.Layers}}' "$NAME" | sed -E 's/\]|\[//g' | tr ' ' '\n'
+}
+
 function docker_image_get_size() {
     local NAME="$1"; docker image inspect --format='{{.Size}}' "$NAME"
 }

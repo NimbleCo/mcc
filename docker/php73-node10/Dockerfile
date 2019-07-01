@@ -1,0 +1,6 @@
+ARG BASE_IMAGE
+
+FROM $BASE_IMAGE
+
+COPY --from="sha256:06b0b52a86ee75cf14279a748cd0f84def447fa34c323a7e302d54451409bbb3" / /
+COPY --from="sha256:9cbd0aee766dc3e27db56e9b9f80821029f6def9a06e6a6e751820cce0dcad1c" / /
