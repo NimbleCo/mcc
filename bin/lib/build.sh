@@ -1,5 +1,5 @@
 BUILT_IMAGES=""
-BUILD_ARGS="--build-arg TARGET_TAG=${TARGET_TAG}"
+BUILD_ARGS=""
 
 function on_exit() {
     [[ -z "$TMP_DIR" ]] || rm -rf "$TMP_DIR"
@@ -7,9 +7,13 @@ function on_exit() {
 
 trap on_exit EXIT
 
+function get_target_image_base_name() {
+    echo "${TARGET_VENDOR}/mcc-${1}"
+}
+
 function get_target_image_name() {
     local NAME="$1"
-    local FULL_NAME="${TARGET_VENDOR}/mcc-${NAME}"
+    local FULL_NAME="$(get_target_image_base_name "$NAME")"
 
     [[ ! -z "$TARGET_TAG" ]] && FULL_NAME="$FULL_NAME:$TARGET_TAG" || true
 
@@ -20,9 +24,13 @@ function get_target_image_id_file() {
     local NAME="$1"; echo "${TMP_DIR}/${NAME}.iid"
 }
 
+function normalize_to_arg_name() {
+    echo "$@" | tr a-z A-Z | sed -E 's/[^_A-Z0-9]+/_/g'
+}
+
 function register_local_image() {
     local NAME="$1" DIGEST="$2"
-    local ARG_NAME="$(echo "$NAME" | tr a-z A-Z | sed -E 's/\./_/g')_IMAGE"
+    local ARG_NAME="$(normalize_to_arg_name "$NAME")_IMAGE"
 
     BUILD_ARGS="${BUILD_ARGS} --build-arg ${ARG_NAME}=${DIGEST}"
 }
@@ -54,6 +62,8 @@ function pull_base_image() {
 function build_local_image() {
     local LOCAL_NAME="$1"
     local TARGET_NAME="$2"
+    local TARGET_BASE_NAME="$(get_target_image_base_name "$LOCAL_NAME")"
+
     shift 2
 
     local CONTEXT="$DOCKER_DIR/$LOCAL_NAME"
@@ -61,7 +71,7 @@ function build_local_image() {
 
     docker_build "$CONTEXT" "$TARGET_NAME" --iidfile "$IID_FILE" ${BUILD_ARGS} $@
 
-    DIGEST=`cat "$IID_FILE"`
+    DIGEST="$(cat "$IID_FILE")"
 }
 
 function build_target_image() {
