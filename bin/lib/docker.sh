@@ -31,8 +31,6 @@ function docker_image_pull() {
     local NAME="$1" FORCE_PULL=$2; docker_image_exists_locally "$NAME" && ! $FORCE_PULL || docker pull "$NAME"
 }
 
-function docker
-
 function docker_build() {
     local CONTEXT_DIR="$1" NAME="$2"; shift 2
 
