@@ -25,7 +25,7 @@ tag then change tag for all `mcc` based image that you use.
 **Obviously some of the benefits of this approach will be nullified if you don't use `overlayfs`, however,
 being the default nowadays it would be a rare case.**
 
-Read about this overlayfs inode magic in the original [kernel devel article](https://www.kernel.org/doc/Documentation/filesystems/overlayfs.txt).
+Read about this overlayfs inode magic in the original [kernel devel article](https://www.kernel.org/doc/Documentation/filesystems/overlayfs.txt) and the official [Docker Documentation](https://docs.docker.com/storage/storagedriver/overlayfs-driver/).
 
 ## Docker hub org
 
